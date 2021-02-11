@@ -7,7 +7,7 @@ const app = express();
 const authRoutes = require("./routes/auth");
 const saucesRoutes = require("./routes/sauces");
 
-mongoose.connect("mongodb+srv://Admin:OCPassword@cluster0.lsf8o.mongodb.net/test?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect("mongodb+srv://Admin:OCPassword@cluster0.lsf8o.mongodb.net/sopekocko?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true })
 .then(() => console.log("Connexion à MongoDB réussie !"))
 .catch(() => console.log("Connexion à MongoDB échouée !"));
 
