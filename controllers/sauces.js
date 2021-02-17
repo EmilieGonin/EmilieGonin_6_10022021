@@ -14,11 +14,9 @@ exports.getSauce = (req, res, next) => {
 };
 exports.createSauce = (req, res, next) => {
   //delete req.body._id ?
-  //Parse malgré body-parser ?
-  //const sauceInfos = JSON.parse(req.body.sauce);
+  const sauceInfos = JSON.parse(req.body.sauce);
   const sauce = new Sauce( {
-    //...sauceInfos,
-    ...req.body.sauce,
+    ...sauceInfos,
     image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
   });
   sauce.save();
@@ -28,9 +26,8 @@ exports.createSauce = (req, res, next) => {
 exports.updateSauce = (req, res, next) => {
   const sauceObject = req.file ?
   {
-    //Parse malgré body-parser ?
-    //const sauceInfos = JSON.parse(req.body.sauce);
-    ...req.body.sauce,
+    const sauceInfos = JSON.parse(req.body.sauce);
+    ...sauceInfos,
     image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
   } : { ...req.body };
 
