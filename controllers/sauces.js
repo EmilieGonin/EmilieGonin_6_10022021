@@ -25,11 +25,21 @@ exports.createSauce = (req, res, next) => {
 	.catch((error) => res.status(400).json({ error }));
 };
 exports.updateSauce = (req, res, next) => {
-  //
+  const sauceObject = req.file ?
+  {
+    //Parse malgré body-parser ?
+    //const sauceInfos = JSON.parse(req.body.sauce);
+    ...req.body.sauce,
+    image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+  } : { ...req.body };
+
+  Sauce.updateOne({ _id: req.params.id }, { ...sauceObject, _id: req.params.id })
+  .then(() => res.status(200).json({ message: "Sauce modifiée !" }))
+  .catch((error) => res.status(400).json({ error }));
 };
 exports.deleteSauce = (req, res, next) => {
   Sauce.deleteOne({ id: req.params.id })
-  .then((sauce) => res.status(200).json({ message: "Deleted!" }))
+  .then((sauce) => res.status(200).json({ message: "Sauce supprimée !" }))
 	.catch((error) => res.status(400).json({ error }));
 };
 exports.updateLike = (req, res, next) => {
