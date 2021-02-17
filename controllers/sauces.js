@@ -12,7 +12,17 @@ exports.getSauce = (req, res, next) => {
 	.catch((error) => res.status(400).json({ error }));
 };
 exports.createSauce = (req, res, next) => {
-  //
+  //delete req.body._id ?
+  //Parse malgré body-parser ?
+  //const sauceInfos = JSON.parse(req.body.sauce);
+  const sauce = new Sauce( {
+    //...sauceInfos,
+    ...req.body.sauce,
+    image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+  });
+  sauce.save();
+  .then(() => res.status(201).json({ message: "Sauce ajoutée !" }))
+	.catch((error) => res.status(400).json({ error }));
 };
 exports.updateSauce = (req, res, next) => {
   //
