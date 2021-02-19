@@ -19,15 +19,14 @@ exports.createSauce = (req, res, next) => {
     ...sauceInfos,
     image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
   });
-  sauce.save();
+  sauce.save()
   .then(() => res.status(201).json({ message: "Sauce ajoutée !" }))
 	.catch((error) => res.status(400).json({ error }));
 };
 exports.updateSauce = (req, res, next) => {
   const sauceObject = req.file ?
   {
-    const sauceInfos = JSON.parse(req.body.sauce);
-    ...sauceInfos,
+    ...JSON.parse(req.body.sauce),
     image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
   } : { ...req.body };
 
