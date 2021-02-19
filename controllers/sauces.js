@@ -17,7 +17,11 @@ exports.createSauce = (req, res, next) => {
   const sauceInfos = JSON.parse(req.body.sauce);
   const sauce = new Sauce( {
     ...sauceInfos,
-    image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+    likes: 0,
+    dislikes: 0,
+    usersLikes: [],
+    usersDislikes: []
   });
   sauce.save()
   .then(() => res.status(201).json({ message: "Sauce ajoutée !" }))
