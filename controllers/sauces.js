@@ -14,7 +14,6 @@ exports.getSauce = (req, res, next) => {
 	.catch((error) => res.status(400).json({ error }));
 };
 exports.createSauce = (req, res, next) => {
-  //delete req.body._id ?
   const sauceInfos = JSON.parse(req.body.sauce);
 
   const sauce = new Sauce( {
@@ -43,7 +42,7 @@ exports.updateSauce = (req, res, next) => {
 exports.deleteSauce = (req, res, next) => {
   Sauce.findOne({ _id: req.params.id })
   .then(sauce => {
-    const filename = sauce.image.split("/images")[1];
+    const filename = sauce.imageUrl.split("/images")[1];
     fs.unlink(`images/${filename}`, () => {
       Sauce.deleteOne({ _id: req.params.id })
       .then((sauce) => res.status(200).json({ message: "Sauce supprimée !" }))
