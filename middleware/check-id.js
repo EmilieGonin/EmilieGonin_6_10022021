@@ -10,7 +10,7 @@ module.exports = (req, res, next) => {
 
     Sauce.findOne({ _id: req.params.id })
     .then(sauce => {
-      if (userId != sauce.userId) {
+      if (userId !== sauce.userId) {
         throw "Invalid user ID";
       }
       else {
