@@ -35,6 +35,11 @@ exports.updateSauce = (req, res, next) => {
     imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
   } : { ...req.body };
 
+  if (sauceObject.likes || sauceObject.dislikes) {
+    delete sauceObject.likes;
+    delete sauceObject.dislikes;
+  }
+
   if (sauceObject.imageUrl) {
     Sauce.findOne({ _id: req.params.id })
     .then(sauce => {
